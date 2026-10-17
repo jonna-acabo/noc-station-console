@@ -2,7 +2,7 @@
 
 One screen for a network operations center that monitors a fleet of GNSS reference stations. It brings together what an analyst usually checks in five separate tools (router management, metrics dashboards, site inventory, ticketing and chat), works out what is wrong with each station, and walks the analyst through the support runbook for that condition.
 
-All data is mock.** Every station, device, ticket and person. Each integration sits behind an adapter, so the mock can be swapped for the real API without touching the workflow logic.
+All data is mock. Every station, device, ticket and person. Each integration sits behind an adapter, so the mock can be swapped for the real API without touching the workflow logic.
 
 ![Console screenshot](docs/screenshot.png)
 
