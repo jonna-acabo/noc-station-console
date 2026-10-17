@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NOC Station Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">
+      <h1>NOC Station Console</h1>
+      <span>Station health, routers, metrics, tickets and the support workflow in one place</span>
+    </div>
+    <nav class="sources" aria-label="Data sources">
+      <span class="src"><i class="dot mock"></i><b>Jira</b> mock</span>
+      <span class="src"><i class="dot mock"></i><b>Grafana</b> mock</span>
+      <span class="src"><i class="dot mock"></i><b>NetCloud</b> mock</span>
+      <span class="src"><i class="dot mock"></i><b>SiteVault</b> mock</span>
+      <span class="src"><i class="dot mock"></i><b>Slack</b> mock</span>
+    </nav>
+  </div>
+
+  <div class="summary" id="summary" role="group" aria-label="Filter stations by state"></div>
+
+  <section class="feed" aria-labelledby="feedh">
+    <header><h3 id="feedh">Alerts without an open ticket</h3><span class="tag" id="conn">Connecting…</span></header>
+    <div class="feedlist" id="feed"></div>
+  </section>
+
+  <div class="main">
+    <aside class="rail" aria-label="Stations">
+      <div class="search"><input id="q" type="search" placeholder="Search site code, router or ticket…" aria-label="Search stations"></div>
+      <div class="list" id="list"></div>
+    </aside>
+    <section class="detail" id="detail" aria-live="polite"></section>
+  </div>
+
+  <section class="feed" aria-labelledby="acth">
+    <header><h3 id="acth">Activity</h3><button class="linkbtn" id="tick">Simulate an event</button></header>
+    <ul class="activity" id="activity"></ul>
+  </section>
+
+  <p class="foot">Portfolio demo with mock data only. Every station, device, ticket and person is fictional. The API keeps all workflow logic server-side; each integration (Jira, Grafana, NetCloud, SiteVault, Slack) sits behind an adapter that can be swapped for the real API.</p>
+</div>
+
+<div class="scrim" id="scrim" hidden>
+  <form class="modal" id="tform" role="dialog" aria-modal="true" aria-labelledby="mh">
+    <h3 id="mh">New station ticket</h3>
+    <div class="field" id="row-sum"><label for="f-sum">Summary</label><input id="f-sum"></div>
+    <div class="two" id="row-meta">
+      <div class="field"><label for="f-src">Create in</label><select id="f-src"><option>SiteVault (SLA trigger → Jira)</option><option>Jira directly (SiteVault unavailable)</option></select></div>
+      <div class="field"><label for="f-pri">Priority</label><select id="f-pri"><option>Medium</option><option>High</option><option>Low</option></select></div>
+    </div>
+    <div class="field"><label for="f-desc">Description</label><textarea id="f-desc"></textarea></div>
+    <p class="note" id="f-note"></p>
+    <div class="actions">
+      <button class="btn primary" type="submit" id="f-create">Create ticket</button>
+      <button class="btn" type="button" id="f-copy">Copy text</button>
+      <button class="btn" type="button" id="f-cancel">Cancel</button>
+    </div>
+  </form>
+</div>
+<div class="toast" id="toast" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>

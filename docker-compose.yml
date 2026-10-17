@@ -1,0 +1,33 @@
+services:
+  console:
+    build: .
+    image: noc-station-console:local
+    ports:
+      - "8000:8000"
+    environment:
+      SIM_ENABLED: "true"
+      SIM_INTERVAL_SECONDS: "90"
+      TICKET_AFTER_HOURS: "24"
+    restart: unless-stopped
+
+  # Optional: `docker compose --profile monitoring up` scrapes the console's own /metrics
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    profiles: ["monitoring"]
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+    depends_on: [console]
+
+  grafana:
+    image: grafana/grafana:11.3.1
+    profiles: ["monitoring"]
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: "Viewer"
+    volumes:
+      - ./monitoring/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml:ro
+    ports:
+      - "3000:3000"
+    depends_on: [prometheus]
